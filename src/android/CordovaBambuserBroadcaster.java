@@ -110,22 +110,6 @@ public class CordovaBambuserBroadcaster extends CordovaPlugin implements Broadca
             return true;
         }
 
-        if ("setPrivateMode".equals(action)) {
-            final boolean value = args.getBoolean(0);
-            this.cordova.getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (mBroadcaster == null) {
-                        callbackContext.error("Broadcaster is not initialized. Set applicationId first.");
-                        return;
-                    };
-                    mBroadcaster.setPrivateMode(value);
-                    callbackContext.success(value ? "Private mode enabled" : "Private mode disabled");
-                }
-            });
-            return true;
-        }
-
         if ("setSendPosition".equals(action)) {
             final boolean value = args.getBoolean(0);
             this.cordova.getActivity().runOnUiThread(new Runnable() {
