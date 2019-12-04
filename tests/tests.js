@@ -12,6 +12,7 @@ exports.defineAutoTests = function() {
       expect(broadcaster.setApplicationId).toBeDefined();
       expect(broadcaster.setCustomData).toBeDefined();
       expect(broadcaster.setSendPosition).toBeDefined();
+      expect(broadcaster.setSaveOnServer).toBeDefined();
       expect(broadcaster.setTitle).toBeDefined();
       expect(broadcaster.setAuthor).toBeDefined();
       expect(broadcaster.showViewfinderBehindWebView).toBeDefined();

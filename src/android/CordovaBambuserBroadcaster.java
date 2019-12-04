@@ -126,6 +126,23 @@ public class CordovaBambuserBroadcaster extends CordovaPlugin implements Broadca
             return true;
         }
 
+        if ("setSaveOnServer".equals(action)) {
+            final boolean value = args.getBoolean(0);
+            this.cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mBroadcaster == null) {
+                        callbackContext.error("Broadcaster is not initialized. Set applicationId first.");
+                        return;
+                    }
+                    ;
+                    mBroadcaster.setSaveOnServer(value);
+                    callbackContext.success(value ? "SaveOnServer enabled" : "SaveOnServer disabled");
+                }
+            });
+            return true;
+        }
+
         if ("setTitle".equals(action)) {
             final String title = args.getString(0);
             this.cordova.getActivity().runOnUiThread(new Runnable() {

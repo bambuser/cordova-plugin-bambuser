@@ -10,6 +10,7 @@
 - (void) hideViewfinder: (CDVInvokedUrlCommand*) command;
 - (void) setCustomData: (CDVInvokedUrlCommand*) command;
 - (void) setSendPosition: (CDVInvokedUrlCommand*) command;
+- (void) setSaveOnServer:(CDVInvokedUrlCommand *)command;
 - (void) setTitle: (CDVInvokedUrlCommand*) command;
 - (void) setAuthor: (CDVInvokedUrlCommand*) command;
 - (void) startBroadcast: (CDVInvokedUrlCommand*) command;

@@ -136,6 +136,19 @@ Broadcaster.setAuthor = function(author, successCallback, errorCallback) {
     return res;
 }
 
+Broadcaster.setSaveOnServer = function (saveOnServer, successCallback, errorCallback) {
+    var res;
+    if (!successCallback) {
+        res = new Promise(function (resolve, reject) { successCallback = resolve; errorCallback = reject; });
+    }
+    if (!Broadcaster._applicationIdSet) {
+        errorCallback('applicationId must be set first');
+        return res;
+    }
+    execQueue(successCallback, errorCallback, 'CordovaBambuserBroadcaster', 'setSaveOnServer', [saveOnServer]);
+    return res;
+}
+
 /**
  * Deprecated: auto resolution is always used
  */

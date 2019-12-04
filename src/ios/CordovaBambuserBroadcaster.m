@@ -73,6 +73,12 @@
     [self.commandDelegate sendPluginResult: [CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId: command.callbackId];
 }
 
+- (void) setSaveOnServer: (CDVInvokedUrlCommand*) command {
+    [self ensureLibbambuserIsBootstrapped];
+    bambuserView.SaveOnServer = (BOOL)[command.arguments[0] boolValue];
+    [self.commandDelegate sendPluginResult: [CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId: command.callbackId];
+}
+
 - (void) setTitle: (CDVInvokedUrlCommand*) command {
     CDVPluginResult* result = nil;
     NSString* title = command.arguments[0];
