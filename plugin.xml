@@ -50,13 +50,13 @@
         <header-file src="src/ios/CordovaBambuserPlayer.h" />
         <source-file src="src/ios/CordovaBambuserPlayer.m" />
         <!-- the npm postinstall hook in package.json downloads and unzips the sdk -->
-        <header-file src="libbambuser-ios-0.9.24-191008/prebuilt/include/BambuserConstants.h" target-dir="libbambuser-ios/prebuilt/include" />
-        <header-file src="libbambuser-ios-0.9.24-191008/prebuilt/include/BambuserViewDelegate.h" target-dir="libbambuser-ios/prebuilt/include"/>
-        <header-file src="libbambuser-ios-0.9.24-191008/prebuilt/include/libbambuser.h" target-dir="libbambuser-ios/prebuilt/include" />
-        <header-file src="libbambuser-ios-0.9.24-191008/prebuilt/include/libbambuserplayer.h" target-dir="libbambuser-ios/prebuilt/include" />
-        <header-file src="libbambuser-ios-0.9.24-191008/prebuilt/include/libbambuserplayer-constants.h" target-dir="libbambuser-ios/prebuilt/include" />
-        <source-file src="libbambuser-ios-0.9.24-191008/prebuilt/lib/libbambuser.a" framework="true" target-dir="libbambuser-ios/prebuilt/lib" />
-        <source-file src="libbambuser-ios-0.9.24-191008/prebuilt/lib/libbambuserplayer.a" framework="true" target-dir="libbambuser-ios/prebuilt/lib" />
+        <header-file src="libbambuser-ios-0.9.28-200428/prebuilt/include/BambuserConstants.h" target-dir="libbambuser-ios/prebuilt/include" />
+        <header-file src="libbambuser-ios-0.9.28-200428/prebuilt/include/BambuserViewDelegate.h" target-dir="libbambuser-ios/prebuilt/include"/>
+        <header-file src="libbambuser-ios-0.9.28-200428/prebuilt/include/libbambuser.h" target-dir="libbambuser-ios/prebuilt/include" />
+        <header-file src="libbambuser-ios-0.9.28-200428/prebuilt/include/libbambuserplayer.h" target-dir="libbambuser-ios/prebuilt/include" />
+        <header-file src="libbambuser-ios-0.9.28-200428/prebuilt/include/libbambuserplayer-constants.h" target-dir="libbambuser-ios/prebuilt/include" />
+        <source-file src="libbambuser-ios-0.9.28-200428/prebuilt/lib/libbambuser.a" framework="true" target-dir="libbambuser-ios/prebuilt/lib" />
+        <source-file src="libbambuser-ios-0.9.28-200428/prebuilt/lib/libbambuserplayer.a" framework="true" target-dir="libbambuser-ios/prebuilt/lib" />
         <framework src="libz.tbd" />
         <framework src="libc++.tbd" />
         <framework src="AudioToolbox.framework" />
