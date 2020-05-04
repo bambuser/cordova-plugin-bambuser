@@ -5,5 +5,5 @@ repositories {
 }
 
 dependencies {
-  compile(name:'libbambuser-0.9.19', ext:'aar')
+  compile(name:'libbambuser-0.9.21', ext:'aar')
 }

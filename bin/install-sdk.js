@@ -5,7 +5,7 @@ var unzipper = require('unzipper');
 
 var sdks = {
   android: {
-    url: 'https://dist.bambuser.com/android_sdk/libbambuser-android-0.9.19-200120.zip',
+    url: 'https://dist.bambuser.com/android_sdk/libbambuser-android-0.9.21-200424.zip',
   },
   ios: {
     url: 'https://dist.bambuser.com/ios_sdk/libbambuser-ios-0.9.24-191008.zip',
