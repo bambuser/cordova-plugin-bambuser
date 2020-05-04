@@ -2,7 +2,7 @@
     xmlns:rim="http://www.blackberry.com/ns/widgets"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="cordova-plugin-bambuser-tests"
-    version="0.9.12">
+    version="0.9.13">
     <name>Cordova Plugin Bambuser Tests</name>
     <js-module src="tests.js" name="tests">
     </js-module>
