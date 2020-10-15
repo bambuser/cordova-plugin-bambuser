@@ -1,6 +1,8 @@
 package com.bambuser.cordova;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Point;
 import android.util.Log;
 import android.view.Display;
 import android.view.OrientationEventListener;
@@ -77,7 +79,7 @@ public class CordovaBambuserPlayer extends CordovaPlugin implements BroadcastPla
             this.cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (playbackSurfaceView == null) {
+                    if (playbackSurfaceView  == null) {
                         callbackContext.error("Playback view not initialized.");
                         return;
                     }
@@ -282,8 +284,28 @@ public class CordovaBambuserPlayer extends CordovaPlugin implements BroadcastPla
     @Override
     public void onBroadcastLoaded(final boolean live, final int width, final int height) {
         log("broadcastLoaded:" + (live ? "live" : "archived") + " " + width + "x" + height);
+      Point size = getScreenSize();
+      float screenAR = size.x / (float) size.y;
+      float videoAR = width / (float) height;
+      float arDiff = screenAR - videoAR;
+
+      boolean shouldCrop = Math.abs(arDiff) < 0.2;
+      playbackSurfaceView.setCropToParent(shouldCrop);
+    
+      if (!shouldCrop) {
+        // calcalute the margin top based on the aspect ratio 
+        // might be better to do it with the layout option to vertically centre it.
+        int offsetTop = Math.round((size.y / 2) - (size.x /  videoAR / 2));
+        ViewGroup parentView = (ViewGroup) webView.getView().getParent();
+        RelativeLayout.LayoutParams previewLayoutParams = new RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
+        previewLayoutParams.setMargins(0, offsetTop , 0 , 0);
+        parentView.removeView(playbackSurfaceView);
+        parentView.addView(playbackSurfaceView, 0, previewLayoutParams);
+      }
+
+      mBroadcastPlayer.setSurfaceView(playbackSurfaceView);
         if (this.onBroadcastLoadedCallbackContext != null) {
-            JSONObject event = new JSONObject();
+          JSONObject event = new JSONObject();
             try {
                 event.put("isLive", live);
             } catch (JSONException e) {
@@ -382,6 +404,21 @@ public class CordovaBambuserPlayer extends CordovaPlugin implements BroadcastPla
 
     private void displayToast(final String text) {
         Toast.makeText(this.cordova.getActivity().getApplicationContext(), text, Toast.LENGTH_LONG).show();
+    }
+
+    private Point getScreenSize() {
+        if (mDefaultDisplay == null)
+        mDefaultDisplay = cordova.getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        try {
+        // this is officially supported since SDK 17 and said to work down to SDK 14 through reflection,
+        // so it might be everything we need.
+        mDefaultDisplay.getClass().getMethod("getRealSize", Point.class).invoke(mDefaultDisplay, size);
+        } catch (Exception e) {
+        // fallback to approximate size.
+        mDefaultDisplay.getSize(size);
+        }
+        return size;
     }
 
     private void log(final String text) {
