@@ -43,6 +43,7 @@
     [bambuserView setOrientation: [UIApplication sharedApplication].statusBarOrientation];
     [self.webView.superview insertSubview: bambuserView.view belowSubview:self.webView];
     [bambuserView setPreviewFrame: CGRectMake(0, 0, self.webView.bounds.size.width, self.webView.bounds.size.height)];
+    [self.viewController.view sendSubviewToBack:bambuserView.view];
     [self.commandDelegate sendPluginResult: [CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId: command.callbackId];
 }
 
