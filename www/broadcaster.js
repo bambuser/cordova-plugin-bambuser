@@ -241,6 +241,98 @@ Broadcaster.switchCamera = function(successCallback, errorCallback) {
     return res;
 };
 
+Broadcaster.canSwitchCameraWithoutResolutionChangeById = function(cameraId, successCallback, errorCallback) {
+    var res;
+    if (!successCallback) {
+        res = new Promise(function (resolve, reject) { successCallback = resolve; errorCallback = reject; });
+    }
+    if (!Broadcaster._applicationIdSet) {
+        errorCallback('applicationId must be set first');
+        return res;
+    }
+    execQueue(successCallback, errorCallback, 'CordovaBambuserBroadcaster', 'canSwitchCameraWithoutResolutionChangeById', [cameraId]);
+    return res;
+}
+
+Broadcaster.setResolution = function(maxWidth,maxHeight,successCallback, errorCallback) {
+    var res;
+    if (!successCallback) {
+        res = new Promise(function (resolve, reject) { successCallback = resolve; errorCallback = reject; });
+    }
+    if (!Broadcaster._applicationIdSet) {
+        errorCallback('applicationId must be set first');
+        return res;
+    }
+    console.log('Broadcaster.setResolution Plugin ' + maxWidth +'x' +maxHeight);
+    execQueue(successCallback, errorCallback, 'CordovaBambuserBroadcaster', 'setResolution', [maxWidth,maxHeight]);
+    return res;
+};
+
+Broadcaster.setCameraId = function(cameraId,successCallback, errorCallback) {
+    var res;
+    if (!successCallback) {
+        res = new Promise(function (resolve, reject) { successCallback = resolve; errorCallback = reject; });
+    }
+    if (!Broadcaster._applicationIdSet) {
+        errorCallback('applicationId must be set first');
+        return res;
+    }
+    console.log('Broadcaster.setCameraId Plugin ' + cameraId);
+    execQueue(successCallback, errorCallback, 'CordovaBambuserBroadcaster', 'setCameraId', [cameraId]);
+    return res;
+};
+Broadcaster.getCameraId = function(successCallback, errorCallback) {
+    var res;
+    if (!successCallback) {
+        res = new Promise(function (resolve, reject) { successCallback = resolve; errorCallback = reject; });
+    }
+    if (!Broadcaster._applicationIdSet) {
+        errorCallback('applicationId must be set first');
+        return res;
+    }
+    execQueue(successCallback, errorCallback, 'CordovaBambuserBroadcaster', 'getCameraId', []);
+    return res;
+};
+
+Broadcaster.canSwitchCameraWithoutResolutionChange = function(successCallback, errorCallback) {
+    var res;
+    if (!successCallback) {
+        res = new Promise(function (resolve, reject) { successCallback = resolve; errorCallback = reject; });
+    }
+    if (!Broadcaster._applicationIdSet) {
+        errorCallback('applicationId must be set first');
+        return res;
+    }
+    execQueue(successCallback, errorCallback, 'CordovaBambuserBroadcaster', 'canSwitchCameraWithoutResolutionChange', []);
+    return res;
+};
+
+Broadcaster.getSupportedCameras = function(successCallback, errorCallback) {
+    var res;
+    if (!successCallback) {
+        res = new Promise(function (resolve, reject) { successCallback = resolve; errorCallback = reject; });
+    }
+    if (!Broadcaster._applicationIdSet) {
+        errorCallback('applicationId must be set first');
+        return res;
+    }
+    execQueue(successCallback, errorCallback, 'CordovaBambuserBroadcaster', 'getSupportedCameras', []);
+    return res;
+};
+
+Broadcaster.getSupportedResolutions = function(successCallback, errorCallback) {
+    var res;
+    if (!successCallback) {
+        res = new Promise(function (resolve, reject) { successCallback = resolve; errorCallback = reject; });
+    }
+    if (!Broadcaster._applicationIdSet) {
+        errorCallback('applicationId must be set first');
+        return res;
+    }
+    execQueue(successCallback, errorCallback, 'CordovaBambuserBroadcaster', 'getSupportedResolutions', []);
+    return res;
+};
+
 Broadcaster.toggleTorchLight = function(successCallback, errorCallback) {
     var res;
     if (!successCallback) {

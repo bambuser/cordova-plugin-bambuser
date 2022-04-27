@@ -21,6 +21,7 @@ import com.bambuser.broadcaster.SurfaceViewWithAutoAR;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import org.json.JSONException;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaArgs;
@@ -29,6 +30,7 @@ import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.PluginResult;
 import android.view.OrientationEventListener;
+import org.json.JSONArray;
 
 public class CordovaBambuserBroadcaster extends CordovaPlugin implements Broadcaster.Observer {
     /**
@@ -214,6 +216,23 @@ public class CordovaBambuserBroadcaster extends CordovaPlugin implements Broadca
             return true;
         }
 
+
+        if ("getCameraId".equals(action)) {
+            this.cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mBroadcaster == null) {
+                        callbackContext.error("Broadcaster is not initialized. Set applicationId first.");
+                        return;
+                    };
+                    String id = mBroadcaster.getCameraId();
+                    log("getCameraId id " + id );
+                    callbackContext.success(id);
+                }
+            });
+            return true;
+        }
+
         if ("stopBroadcast".equals(action)) {
             this.cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -239,6 +258,115 @@ public class CordovaBambuserBroadcaster extends CordovaPlugin implements Broadca
                     };
                     mBroadcaster.switchCamera();
                     callbackContext.success("Camera switch requested");
+                }
+            });
+            return true;
+        }
+
+        if ("getSupportedCameras".equals(action)) {
+            this.cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mBroadcaster == null) {
+                        callbackContext.error("Broadcaster is not initialized. Set applicationId first.");
+                        return;
+                    };
+                    List<String> result = new ArrayList<String>();
+                    for (Broadcaster.Camera element : mBroadcaster.getSupportedCameras()) {
+                        result.add("{ \"id\": " + element.id + ",  \"facing\":\""+element.facing+"\"}");
+                    }
+                    String finalResult = result.stream()
+                    .map(n -> String.valueOf(n))
+                    .collect(Collectors.joining(",", "[", "]"));
+                    callbackContext.success(finalResult);
+                }
+            });
+            return true;
+        }
+
+        if ("getSupportedResolutions".equals(action)) {
+            this.cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mBroadcaster == null) {
+                        callbackContext.error("Broadcaster is not initialized. Set applicationId first.");
+                        return;
+                    };
+
+                    List<String> result = new ArrayList<String>();
+                    for (Object element : mBroadcaster.getSupportedResolutions()) {
+                        result.add(element.toString());
+                    }
+
+                    String finalResult = result.stream()
+                    .map(n -> String.valueOf(n))
+                    .collect(Collectors.joining(",", "", ""));
+ 
+                    callbackContext.success(finalResult);
+                }
+            });
+            return true;
+        }
+
+        if ("canSwitchCameraWithoutResolutionChangeById".equals(action)) {
+           String cameraId = args.getString(0);
+           this.cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mBroadcaster == null) {
+                        callbackContext.error("Broadcaster is not initialized. Set applicationId first.");
+                        return;
+                    }; 
+                    int intResult = mBroadcaster.canSwitchCameraWithoutResolutionChange(cameraId) ? 1 : 0;
+                    callbackContext.success(intResult);
+                }
+            });
+            return true;
+        }
+
+        if ("setCameraId".equals(action)) {
+           String cameraId = args.getString(0);
+           this.cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mBroadcaster == null) {
+                        callbackContext.error("Broadcaster is not initialized. Set applicationId first.");
+                        return;
+                    }; 
+                    mBroadcaster.setCameraId(cameraId);
+                    callbackContext.success("SET OK cameraId " + cameraId );
+                }
+            });
+            return true;
+        }
+
+        if ("setResolution".equals(action)) {
+           int maxWidth = args.getInt(0);
+           int maxHeight = args.getInt(1);
+           this.cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mBroadcaster == null) {
+                        callbackContext.error("Broadcaster is not initialized. Set applicationId first.");
+                        return;
+                    }; 
+                    mBroadcaster.setResolution(maxWidth,maxHeight);
+                    callbackContext.success("SET RESOLUTION");
+                }
+            });
+            return true;
+        }
+
+        if ("canSwitchCameraWithoutResolutionChange".equals(action)) {
+            this.cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mBroadcaster == null) {
+                        callbackContext.error("Broadcaster is not initialized. Set applicationId first.");
+                        return;
+                    }; 
+                    int intResult = mBroadcaster.canSwitchCameraWithoutResolutionChange() ? 1 : 0;
+                    callbackContext.success(intResult);
                 }
             });
             return true;
