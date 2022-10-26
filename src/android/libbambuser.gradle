@@ -5,6 +5,5 @@ repositories {
 }
 
 dependencies {
-  implementation 'androidx.appcompat:appcompat:1.5.1'
   compile(name:'libbambuser-0.9.21', ext:'aar')
 }
