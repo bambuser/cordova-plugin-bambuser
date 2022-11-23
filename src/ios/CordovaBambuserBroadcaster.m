@@ -39,6 +39,7 @@
 - (void) showViewfinderBehindWebView: (CDVInvokedUrlCommand*) command {
     [self.webView setOpaque: NO];
     self.webView.backgroundColor = UIColor.clearColor;
+    self.webView.scrollView.backgroundColor = UIColor.clearColor;
     [self ensureLibbambuserIsBootstrapped];
     [bambuserView setOrientation: [UIApplication sharedApplication].statusBarOrientation];
     [self.webView.superview insertSubview: bambuserView.view belowSubview:self.webView];
