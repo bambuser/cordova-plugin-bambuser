@@ -1,7 +1,7 @@
 var https = require('https');
 var request = require('request');
 var path = require('path');
-var unzipper = require('unzipper');
+const unzip = require('unzip-stream');
 
 var sdks = {
   android: {
@@ -25,4 +25,4 @@ if (!sdk) {
 request = require('request');
 
 var stream = request({url: sdk.url, pool: new https.Agent({keepAlive: false})});
-stream.pipe(unzipper.Extract({path: path.join(__dirname, '..')}));
+stream.pipe(unzip.Extract({path: path.join(__dirname, '..')}));

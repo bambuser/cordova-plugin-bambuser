@@ -19,6 +19,6 @@
   },
   "dependencies": {
     "request": "^2.88.0",
-    "unzipper": "^0.9.3"
+    "unzip-stream": "^0.3.1"
   }
 }
